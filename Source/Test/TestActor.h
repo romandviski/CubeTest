@@ -12,17 +12,21 @@ UCLASS()
 class TEST_API ATestActor : public AActor
 {
 	GENERATED_BODY()
+private: // доступ открыт самому классу
+	// пусто
 	
-public:	
+public:	// доступ открыт всем другим классам, кто видит определение данного класса
 	// Sets default values for this actor's properties
 	ATestActor();
+
+protected: // доступ открыт классам, производным от данного. (наследникам)
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 public:
-	// my variable
+	// Мои переменные
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test", meta = (ToolTip = "Тестовый инт"))
 	int32 intBlueprintReadWrite = 7;
 
@@ -38,23 +42,26 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test", meta = (EditCondition = AddiTionalOption, EditConditionHides))
 	int32 intAdditionalOption = 7;
 
-	// сам энумератор в MyBlueprintFunctionLibrary
+	// Энумератор находится в MyBlueprintFunctionLibrary
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test")
 	EMyEnumerator CoolEnumerator = EMyEnumerator::v1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test", meta = (EditCondition = "CoolEnumerator == EMyEnumerator::v3", EditConditionHides))
 	int32 intAdditionalOption2 = 7;
 
-	// my function
+	// Мои функции
 	UFUNCTION(BlueprintCallable, Category = "Test", meta = (Keywords = "my, function, example", Tooltip = "This is an example function"))
 	void MyBlueprintCallableFunction();
 
 	UFUNCTION(BlueprintPure, Category = "Test")
 	int32 MyBlueprintPureFunction();
-
-	UFUNCTION(BlueprintImplementableEvent, Category = "Test")
+	
+	UFUNCTION(BlueprintImplementableEvent, Category = "Test", meta = (ToolTip = "Логика только в блюпринте"))
 	void MyBlueprintImplementableEventFunction();
 
+	/*
+	  Часть логики в С++, продолжение в блюпринте
+	 */
 	UFUNCTION(BlueprintNativeEvent, Category = "Test")
 	void MyBlueprintNativeEventFunction();
 

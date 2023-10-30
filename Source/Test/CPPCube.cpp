@@ -14,7 +14,6 @@ ACPPCube::ACPPCube()
 	PrimaryActorTick.bCanEverTick = true;
 
 	SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("My Scene"));
-
 	RootComponent = SceneComponent;
 	
 	static ConstructorHelpers::FObjectFinder<UStaticMesh>VisualAsset(TEXT("/Game/ThirdPerson/Geometry/Meshes/1M_Cube_Chamfer.1M_Cube_Chamfer"));
@@ -35,7 +34,7 @@ ACPPCube::ACPPCube()
 	Box->SetBoxExtent(FVector(100,100,100), true);
 	Box->SetRelativeLocation(FVector(0,0,50));
 
-	// добавляем динамический делегат 
+	// Подвязываемся на стандаортный делегат 
 	Box->OnComponentBeginOverlap.AddDynamic(this, &ACPPCube::MyBeginOverlap);
 	Box->OnComponentEndOverlap.AddDynamic(this, &ACPPCube::MyEndOverlap);
 }
