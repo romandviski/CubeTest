@@ -43,7 +43,7 @@ ACPPCube::ACPPCube()
 void ACPPCube::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 }
 
 // Called every frame

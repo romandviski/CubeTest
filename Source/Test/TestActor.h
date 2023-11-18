@@ -13,26 +13,29 @@ class TEST_API ATestActor : public AActor
 {
 	GENERATED_BODY()
 private: // доступ открыт самому классу
+
 	// пусто
 	
 public:	// доступ открыт всем другим классам, кто видит определение данного класса
+
 	// Sets default values for this actor's properties
 	ATestActor();
 
 protected: // доступ открыт классам, производным от данного. (наследникам)
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 public:
-	// Мои переменные
+	// Мои переменные =========================================================================================================
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test", meta = (ToolTip = "Тестовый инт"))
 	int32 intBlueprintReadWrite = 7;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Test")
 	int32 intBlueprintReadOnly = 7;
-
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Test")
 	int32 intVisibleAnywhere = 7;
 	
@@ -49,7 +52,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test", meta = (EditCondition = "CoolEnumerator == EMyEnumerator::v3", EditConditionHides))
 	int32 intAdditionalOption2 = 7;
 
-	// Мои функции
+	// Мои функции =========================================================================================================
+	
 	UFUNCTION(BlueprintCallable, Category = "Test", meta = (Keywords = "my, function, example", Tooltip = "This is an example function"))
 	void MyBlueprintCallableFunction();
 
@@ -62,11 +66,11 @@ public:
 	/*
 	  Часть логики в С++, продолжение в блюпринте
 	 */
-	UFUNCTION(BlueprintNativeEvent, Category = "Test")
+	UFUNCTION(BlueprintNativeEvent, Category = "Test", meta = (Keywords = "777, fun"))
 	void MyBlueprintNativeEventFunction();
 
 	UFUNCTION(BlueprintPure, Category = "Test")
-	int32 MyFastBlueprintPureReturnFunction(){ return 8; }
+	int32 MyFastBlueprintPureReturnFunction(){ return intBlueprintReadWrite; }
 
 	UFUNCTION(BlueprintCallable, Category = "Test")
 	int MyBlueprintCallableParameterReturnFunction(int32 x, float y, FString z);

@@ -27,6 +27,8 @@ void ATestActor::Tick(float DeltaTime)
 
 void ATestActor::MyBlueprintCallableFunction()
 {
+	MyBlueprintImplementableEventFunction();
+
 	if(GEngine)
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Some debug message!"));
 }
