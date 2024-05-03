@@ -8,33 +8,38 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/GameplayStatics.h"
 
+
+
 ACPPCube::ACPPCube()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	
 	SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("My Scene"));
 	RootComponent = SceneComponent;
-	
+
+	// добавляем статик меш
 	static ConstructorHelpers::FObjectFinder<UStaticMesh>VisualAsset(TEXT("/Game/ThirdPerson/Geometry/Meshes/1M_Cube_Chamfer.1M_Cube_Chamfer"));
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("My Static Mesh"));
 	StaticMesh->SetStaticMesh(VisualAsset.Object);
 	StaticMesh->SetupAttachment(RootComponent);
 	StaticMesh->SetRelativeLocation(FVector(0,0,50));
-	
+
+	// добавляем лампочку
 	PointLight = CreateDefaultSubobject<UPointLightComponent>(TEXT("My Point Light"));
 	PointLight->SetupAttachment(StaticMesh);
 	PointLight->SetLightColor(FLinearColor(1,0,0,1), true);
 	PointLight->SetVisibility(false);
 	PointLight->SetRelativeLocation(FVector(0,0,100));
 
-	// see video https://youtu.be/TRTqRuBHajw?t=461
+	// добавляем коллижн бокс
+	// больше про коллижн бокс https://youtu.be/TRTqRuBHajw?t=461
 	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("My Box Collision"));
 	Box->SetupAttachment(RootComponent);
 	Box->SetBoxExtent(FVector(100,100,100), true);
 	Box->SetRelativeLocation(FVector(0,0,50));
 
-	// Подвязываемся на стандаортный делегат 
+	// Подвязываем свою функцию на событие OnComponentBeginOverlap
 	Box->OnComponentBeginOverlap.AddDynamic(this, &ACPPCube::MyBeginOverlap);
 	Box->OnComponentEndOverlap.AddDynamic(this, &ACPPCube::MyEndOverlap);
 }

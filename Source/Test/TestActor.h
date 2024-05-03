@@ -69,8 +69,10 @@ public:
 	UFUNCTION(BlueprintNativeEvent, Category = "Test", meta = (Keywords = "777, fun"))
 	void MyBlueprintNativeEventFunction();
 
+	// FORCEINLINE Если компилятор решает, что встраивание возможно и целесообразно, 
+	// то он заменяет каждый вызов функции на непосредственное вставление кода функции в место вызова. 
 	UFUNCTION(BlueprintPure, Category = "Test")
-	int32 MyFastBlueprintPureReturnFunction(){ return intBlueprintReadWrite; }
+	FORCEINLINE int32 MyFastBlueprintPureReturnFunction(){ return intBlueprintReadWrite; }
 
 	UFUNCTION(BlueprintCallable, Category = "Test")
 	int MyBlueprintCallableParameterReturnFunction(int32 x, float y, FString z);

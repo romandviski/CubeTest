@@ -11,6 +11,7 @@
 #define DEBUGMESSAGE(x, ...) if(GEngine){GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, FString::Printf(TEXT(x), __VA_ARGS__));}
 
 
+
 UCLASS()
 class TEST_API ACPPCube : public AActor
 {
@@ -20,10 +21,11 @@ public:
 	// Sets default values for this actor's properties
 	ACPPCube();
 
+	// объявляем состав нашего будущего актора
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = Components)
-		class USceneComponent* SceneComponent = nullptr;
+		USceneComponent* SceneComponent = nullptr;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = Components)
-		class UStaticMeshComponent* StaticMesh = nullptr;
+		UStaticMeshComponent* StaticMesh = nullptr;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = Components)
 		class UPointLightComponent* PointLight = nullptr;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = Components)
@@ -37,13 +39,13 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// переопределение стандартных нотифаев
+	// переопределяю стандартные оверлапы актора
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 	virtual void NotifyActorEndOverlap(AActor* OtherActor) override;
 
+	// собственные функции для подвязки на оверлапы компонента
 	UFUNCTION()
 		void MyBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	UFUNCTION()
 		void MyEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
-	
 };
