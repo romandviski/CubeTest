@@ -8,7 +8,7 @@ ATestActor::ATestActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	
 }
 
 // Called when the game starts or when spawned
@@ -16,6 +16,15 @@ void ATestActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	// Пример 1 кода для спавна
+	FVector SpawnLocation = FVector(0, 0, 0);
+	FRotator SpawnRotation = FRotator(0, 0, 0);
+	GetWorld()->SpawnActor<ATestActor>(ATestActor::StaticClass(), SpawnLocation, SpawnRotation);
+
+	// Пример 2 кода для спавна
+	FTransform SpawnTransform = FTransform(SpawnRotation, SpawnLocation);
+	auto SpawnClass = ATestActor::StaticClass();
+	GetWorld()->SpawnActor<ATestActor>(SpawnClass, SpawnTransform);
 }
 
 // Called every frame
@@ -60,6 +69,11 @@ int32 ATestActor::MyBlueprintPureParameterReturnFunction(int x, float y, FString
 {
 
 	return 0;
+}
+
+float ATestActor::AddFloats(float fA, float fB)
+{
+	return fA + fB;
 }
 
 void ATestActor::JustMyParameterFunction(int x, float y, FString z)

@@ -13,11 +13,13 @@
 ACPPCube::ACPPCube()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-	
-	SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("My Scene"));
-	RootComponent = SceneComponent;
+	PrimaryActorTick.bCanEverTick = false;
 
+	// устанавливаем рутовый компонент
+	SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("My Scene"));
+	SetRootComponent(SceneComponent);
+	//RootComponent = SceneComponent; // ещё вариант
+	
 	// добавляем статик меш
 	static ConstructorHelpers::FObjectFinder<UStaticMesh>VisualAsset(TEXT("/Game/ThirdPerson/Geometry/Meshes/1M_Cube_Chamfer.1M_Cube_Chamfer"));
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("My Static Mesh"));
@@ -35,11 +37,11 @@ ACPPCube::ACPPCube()
 	// добавляем коллижн бокс
 	// больше про коллижн бокс https://youtu.be/TRTqRuBHajw?t=461
 	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("My Box Collision"));
-	Box->SetupAttachment(RootComponent);
+	Box->SetupAttachment(StaticMesh);
 	Box->SetBoxExtent(FVector(100,100,100), true);
 	Box->SetRelativeLocation(FVector(0,0,50));
 
-	// Подвязываем свою функцию на событие OnComponentBeginOverlap
+	// Подвязываем свою функцию на событие оверлап компонента
 	Box->OnComponentBeginOverlap.AddDynamic(this, &ACPPCube::MyBeginOverlap);
 	Box->OnComponentEndOverlap.AddDynamic(this, &ACPPCube::MyEndOverlap);
 }
@@ -79,13 +81,15 @@ void ACPPCube::MyEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherAc
 void ACPPCube::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
-	
+
+	// вызов собственного макроса
 	DEBUGMESSAGE("Hello! I overided NotifyActorBeginOverlap =)");
 }
 
 void ACPPCube::NotifyActorEndOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorEndOverlap(OtherActor);
-	
+
+	// вызов собственного макроса
 	DEBUGMESSAGE("Hello! I overided NotifyActorEndOverlap =)");
 }
