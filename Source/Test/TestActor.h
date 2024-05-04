@@ -68,7 +68,7 @@ public:
 	void MyBlueprintImplementableEventFunction();
 
 	/*
-	 * Часть логики в С++, продолжение в блюпринте
+	  Часть логики в С++, продолжение в блюпринте
 	 */
 	UFUNCTION(BlueprintNativeEvent, Category = "Test", meta = (Keywords = "777, fun"))
 	void MyBlueprintNativeEventFunction();

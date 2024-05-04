@@ -16,15 +16,17 @@ void ATestActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	// Пример 1 кода для спавна
+	/*
+	// Пример_1 кода для спавна
 	FVector SpawnLocation = FVector(0, 0, 0);
 	FRotator SpawnRotation = FRotator(0, 0, 0);
 	GetWorld()->SpawnActor<ATestActor>(ATestActor::StaticClass(), SpawnLocation, SpawnRotation);
 
-	// Пример 2 кода для спавна
+	// Пример_2 кода для спавна
 	FTransform SpawnTransform = FTransform(SpawnRotation, SpawnLocation);
 	auto SpawnClass = ATestActor::StaticClass();
 	GetWorld()->SpawnActor<ATestActor>(SpawnClass, SpawnTransform);
+	*/
 }
 
 // Called every frame
