@@ -13,7 +13,7 @@ class TEST_API ATestActor : public AActor
 {
 	GENERATED_BODY()
 	
-private: // доступ открыт самому классу
+private: // доступ открыт только самому классу
 
 	// Приватная переменная
 	int SecretInt = 666;
@@ -29,14 +29,18 @@ protected: // доступ открыт классам, производным �
 	virtual void BeginPlay() override;
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	// Вызывается после инициализации переменных
+	virtual void PostInitProperties() override;
+	// Вызывается после изменений в редакторе
+	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 
 public:
-	// Мои переменные =========================================================================================================
+// Мои переменные =========================================================================================================
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test", meta = (ToolTip = "Тестовый инт"))
-	int32 intBlueprintReadWrite = 7;
+	int32 intBlueprintReadWrite = 2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Test")
-	int32 intBlueprintReadOnly = 7;
+	int32 intBlueprintReadOnly = 3;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Test")
 	int32 intVisibleAnywhere = 777;
@@ -47,14 +51,22 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test", meta = (EditCondition = AddiTionalOption, EditConditionHides))
 	int32 intAdditionalOption = 7;
 
-	// Энумератор находится в MyBlueprintFunctionLibrary
+	// Энумератор описан в MyBlueprintFunctionLibrary
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test")
 	EMyEnumerator CoolEnumerator = EMyEnumerator::v1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test", meta = (EditCondition = "CoolEnumerator == EMyEnumerator::v3", EditConditionHides))
 	int32 intAdditionalOption2 = 7;
 
-	// Мои функции =========================================================================================================
+	// Пример для PostInitProperties в связке с PostEditChangeProperty
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test2")
+	float BaseDamage = 3;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test2")
+	float Multiplier = 3;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Test2")
+	float FinalDamage = 777;
+	
+// Мои функции =========================================================================================================
 
 	// Функция объявленная в С++
 	UFUNCTION(BlueprintCallable, Category = "Test", meta = (Keywords = "my, function, example", Tooltip = "This is an example function"))
@@ -73,10 +85,11 @@ public:
 	UFUNCTION(BlueprintNativeEvent, Category = "Test", meta = (Keywords = "777, fun"))
 	void MyBlueprintNativeEventFunction();
 
-	// FORCEINLINE Если компилятор решает, что встраивание возможно и целесообразно, 
-	// то он заменяет каждый вызов функции на непосредственное вставление кода функции в место вызова. 
+	// FORCEINLINE - Если компилятор решает, что встраивание возможно и целесообразно, 
+	// то он заменяет каждый вызов функции на непосредственное вставление кода функции в место вызова.
+	// const - функция гарантирует, что она не изменит состояние объекта класса, к которому она принадлежит.
 	UFUNCTION(BlueprintPure, Category = "Test")
-	FORCEINLINE int32 MyFastBlueprintPureReturnFunction(){ return SecretInt; }
+	FORCEINLINE int32 MyFastBlueprintPureReturnFunction() const { return SecretInt; }
 
 	UFUNCTION(BlueprintCallable, Category = "Test")
 	int MyBlueprintCallableParameterReturnFunction(int32 x, float y, FString z);

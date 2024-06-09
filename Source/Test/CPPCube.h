@@ -8,7 +8,7 @@
 
 #include "CPPCube.generated.h"
 
-// Собственный макрос
+// Собственный макрос для вывода на экран
 #define DEBUGMESSAGE(x, ...) if(GEngine){GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT(x), __VA_ARGS__));}
 
 
@@ -22,7 +22,7 @@ public:
 	// Sets default values for this actor's properties
 	ACPPCube();
 
-	// объявляем состав нашего будущего актора
+// объявляем состав нашего будущего актора
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = Components)
 		USceneComponent* SceneComponent = nullptr;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = Components)
@@ -37,14 +37,13 @@ protected:
 	virtual void BeginPlay() override;
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	
-public:	
-	
+
 	// переопределяю стандартные оверлапы актора
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 	virtual void NotifyActorEndOverlap(AActor* OtherActor) override;
-
-	// собственные функции для подвязки на оверлапы компонента
+	
+public:	
+// собственные функции для подвязки на оверлапы компонента
 	UFUNCTION()
 		void MyBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	UFUNCTION()

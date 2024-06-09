@@ -29,6 +29,22 @@ void ATestActor::BeginPlay()
 	*/
 }
 
+void ATestActor::PostInitProperties()
+{
+	Super::PostInitProperties();
+	
+	FinalDamage = BaseDamage * Multiplier;
+}
+
+#if WITH_EDITOR // код компилируется для использования в редакторе, в игре не нужен
+void ATestActor::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
+{
+	FinalDamage = BaseDamage * Multiplier;
+
+	Super::PostEditChangeProperty(PropertyChangedEvent);
+}
+#endif
+
 // Called every frame
 void ATestActor::Tick(float DeltaTime)
 {

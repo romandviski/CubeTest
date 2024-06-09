@@ -20,9 +20,10 @@ ACPPCube::ACPPCube()
 	//RootComponent = SceneComponent; // ещё вариант
 	
 	// добавляем статик меш
-	static ConstructorHelpers::FObjectFinder<UStaticMesh>VisualAsset(TEXT("/Game/ThirdPerson/Geometry/Meshes/1M_Cube_Chamfer.1M_Cube_Chamfer"));
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("My Static Mesh"));
-	StaticMesh->SetStaticMesh(VisualAsset.Object);
+	// ConstructorHelpers помогает назначить ассет из С++ кода
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh>VisualAsset(TEXT("/Game/ThirdPerson/Geometry/Meshes/1M_Cube_Chamfer.1M_Cube_Chamfer"));
+	//StaticMesh->SetStaticMesh(VisualAsset.Object);
 	StaticMesh->SetupAttachment(RootComponent);
 	StaticMesh->SetRelativeLocation(FVector(0,0,50));
 
@@ -81,8 +82,11 @@ void ACPPCube::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
-	// вызов собственного макроса
+	// вызов собственного макроса для выводв на экран
 	DEBUGMESSAGE("Hello! I overided NotifyActorBeginOverlap =)");
+	// больше про логирование
+	// https://www.chrismccole.com/blog/logging-in-ue4-cpp
+	// https://www.unrealcommunity.wiki/logging-lgpidy6i
 }
 
 void ACPPCube::NotifyActorEndOverlap(AActor* OtherActor)
