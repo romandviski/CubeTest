@@ -44,7 +44,7 @@ void AMyGameMode::BeginPlay()
 	// Лямбда-выражение сравнивает объекты типа AMyPlayer по их полям Score для упорядочивания их по убыванию.
 	//PlayerArray.Sort([](const AMyPlayer& A, const AMyPlayer& B) {	return A.Score > B.Score; });
 
-	// Просим игроков показать своё инфо
+	// Просим игроков показать своё инфо в цикле for each
 	for (AMyPlayer* Player : PlayerArray)
 	{
 		Player->ShowInfo();
