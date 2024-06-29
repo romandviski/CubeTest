@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 
-
 #include "CPPCube.generated.h"
 
 // Собственный макрос для вывода на экран
