@@ -8,8 +8,12 @@ public class TestTarget : TargetRules
 	public TestTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
-		DefaultBuildSettings = BuildSettingsVersion.V2;
-
+		
+		//DefaultBuildSettings = BuildSettingsVersion.V2; // было в 4.27
+		
+		DefaultBuildSettings = BuildSettingsVersion.Latest; // для 5 анрила должно быть так
+		//IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
+		
 		ExtraModuleNames.AddRange( new string[] { "Test" } );
 	}
 }
