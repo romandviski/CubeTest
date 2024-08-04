@@ -105,4 +105,7 @@ public:
 	// Функция о которой ничего не знает блюпринт
 	UFUNCTION()
 	void JustMyParameterFunction(int32 x, float y, FString z);
+
+	UFUNCTION(BlueprintCallable)
+	void NewFunc();
 };

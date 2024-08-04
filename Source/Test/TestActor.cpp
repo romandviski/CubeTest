@@ -94,7 +94,8 @@ float ATestActor::AddFloats(float fA, float fB)
 	return fA + fB;
 }
 
-void ATestActor::JustMyParameterFunction(int x, float y, FString z)
-{
+void ATestActor::JustMyParameterFunction(int x, float y, FString z) {}
+
+void ATestActor::NewFunc() {
 	
 }
