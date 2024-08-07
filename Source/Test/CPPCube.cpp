@@ -79,8 +79,9 @@ void ACPPCube::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
-	// вызов собственного макроса для выводв на экран
-	DEBUGMESSAGE("Hello! I overided NotifyActorBeginOverlap =)");
+	// Почти PrintString
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "Hello! I override NotifyActorBeginOverlap =)");
 	// больше про логирование
 	// https://www.chrismccole.com/blog/logging-in-ue4-cpp
 	// https://www.unrealcommunity.wiki/logging-lgpidy6i
@@ -89,7 +90,7 @@ void ACPPCube::NotifyActorBeginOverlap(AActor* OtherActor)
 void ACPPCube::NotifyActorEndOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorEndOverlap(OtherActor);
-
-	// вызов собственного макроса
-	DEBUGMESSAGE("Hello! I overided NotifyActorEndOverlap =)");
+	
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "Hello! I override NotifyActorEndOverlap =)");
 }

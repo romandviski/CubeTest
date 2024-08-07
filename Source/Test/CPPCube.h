@@ -7,9 +7,6 @@
 
 #include "CPPCube.generated.h"
 
-// Собственный макрос для вывода на экран
-#define DEBUGMESSAGE(x, ...) if(GEngine){GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT(x), __VA_ARGS__));}
-
 class USceneComponent;
 class UStaticMeshComponent;
 class UPointLightComponent;

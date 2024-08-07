@@ -11,8 +11,8 @@ public class TestEditorTarget : TargetRules
 		
 		//DefaultBuildSettings = BuildSettingsVersion.V2; // было в 4.27
 		
-		DefaultBuildSettings = BuildSettingsVersion.Latest; // для 5 анрила должно быть так
-		//IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
+		DefaultBuildSettings = BuildSettingsVersion.Latest; // для 5.4 анрила должно быть так
+		IncludeOrderVersion = EngineIncludeOrderVersion.Latest; // для 5.4 анрила должно быть так
 		
 		ExtraModuleNames.AddRange( new string[] { "Test" } );
 	}
