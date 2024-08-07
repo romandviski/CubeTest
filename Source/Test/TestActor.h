@@ -8,6 +8,8 @@
 
 #include "TestActor.generated.h"
 
+
+
 UCLASS()
 class TEST_API ATestActor : public AActor
 {
@@ -20,14 +22,14 @@ private: // доступ открыт только самому классу
 	
 public:	// доступ открыт всем другим классам, кто видит определение данного класса
 
-	// Sets default values for this actor's properties
+	// Конструктор класса
 	ATestActor();
 
 protected: // доступ открыт классам, производным от данного. (наследникам)
 
-	// Called when the game starts or when spawned
+	// Вызывается при порождении в мире(спавне или старте игры)
 	virtual void BeginPlay() override;
-	// Called every frame
+	// Вызывается каждый кадр
 	virtual void Tick(float DeltaTime) override;
 	// Вызывается после инициализации переменных
 	virtual void PostInitProperties() override;
@@ -51,7 +53,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test", meta = (EditCondition = AddiTionalOption, EditConditionHides))
 	int32 intAdditionalOption = 7;
 
-	// Энумератор описан в MyBlueprintFunctionLibrary
+	// Энумератор описан в MyBlueprintFunctionLibrary и заинклюден вверху
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test")
 	EMyEnumerator CoolEnumerator = EMyEnumerator::v1;
 
@@ -100,7 +102,7 @@ public:
 	// Ещё примеры	https://nerivec.github.io/old-ue4-wiki/pages/custom-blueprint-node-creation.html
 	// Зачем нужен static https://habr.com/ru/articles/527044/
 	UFUNCTION(BlueprintPure, meta = (DisplayName = "Adds floats", CompactNodeTitle = "Add Floats", Keywords = "Float Add"), Category = Test)
-	float AddFloats(float fA = 0.1f, float fB = 0.2f);
+	float AddFloats(float A = 0.1f, float B = 0.2f);
 	
 	// Функция о которой ничего не знает блюпринт
 	UFUNCTION()

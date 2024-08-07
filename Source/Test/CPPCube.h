@@ -7,9 +7,8 @@
 
 #include "CPPCube.generated.h"
 
-// Собственный макрос для вывода на экран
-#define DEBUGMESSAGE(x, ...) if(GEngine){GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT(x), __VA_ARGS__));}
-
+// Предупреждаем компилятор что эти классы будут описаны позже
+// forward declarations
 class USceneComponent;
 class UStaticMeshComponent;
 class UPointLightComponent;
@@ -21,7 +20,7 @@ class TEST_API ACPPCube : public AActor
 	GENERATED_BODY()
 	
 private:
-	// объявляем состав нашего будущего актора
+	// Описываем состав компонентов нашего будущего актора
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = Components)
 	USceneComponent* SceneComponent = nullptr;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = Components)
@@ -36,7 +35,7 @@ public:
 	ACPPCube();
 
 protected:
-	// Вызывается при запуске игры или при порождении
+	// Вызывается при порождении в мире(спавне или старте игры)
 	virtual void BeginPlay() override;
 	// Вызывается каждый кадр
 	virtual void Tick(float DeltaTime) override;
@@ -46,7 +45,7 @@ protected:
 	virtual void NotifyActorEndOverlap(AActor* OtherActor) override;
 	
 public:	
-// собственные функции для подвязки на оверлапы компонента
+	// Собственные функции для подвязки на оверлапы компонента
 	UFUNCTION()
 		void MyBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	UFUNCTION()
