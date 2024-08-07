@@ -9,15 +9,15 @@
 
 ACPPCube::ACPPCube()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+ 	// Выключаем тик, если он нам не нужен
+ 	PrimaryActorTick.bCanEverTick = false;
 
-	// устанавливаем рутовый компонент
+	// Устанавливаем компонент сцены как рутовый компонент
 	SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("My Scene"));
 	SetRootComponent(SceneComponent);
 	//RootComponent = SceneComponent; // ещё вариант
 	
-	// добавляем статик меш
+	// Создаём статик меш компонент и настраиваем
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("My Static Mesh"));
 	// ConstructorHelpers помогает назначить ассет из С++ кода
 	//static ConstructorHelpers::FObjectFinder<UStaticMesh>VisualAsset(TEXT("/Game/ThirdPerson/Geometry/Meshes/1M_Cube_Chamfer.1M_Cube_Chamfer"));
@@ -25,36 +25,34 @@ ACPPCube::ACPPCube()
 	StaticMesh->SetupAttachment(RootComponent);
 	StaticMesh->SetRelativeLocation(FVector(0,0,50));
 
-	// добавляем лампочку
+	// Создаём компонент лампочку
 	PointLight = CreateDefaultSubobject<UPointLightComponent>(TEXT("My Point Light"));
 	PointLight->SetupAttachment(StaticMesh);
 	PointLight->SetLightColor(FLinearColor(1,0,0,1), true);
 	PointLight->SetVisibility(false);
 	PointLight->SetRelativeLocation(FVector(0,0,100));
 
-	// добавляем коллижн бокс
-	// больше про коллижн бокс https://youtu.be/TRTqRuBHajw?t=461
+	// Создаём компонент коллижн бокс
+	// Больше про коллижн бокс https://youtu.be/TRTqRuBHajw?t=461
 	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("My Box Collision"));
 	Box->SetupAttachment(StaticMesh);
 	Box->SetBoxExtent(FVector(100,100,100), true);
 	Box->SetRelativeLocation(FVector(0,0,50));
 
-	// Подвязываем свою функцию на событие оверлап компонента
+	// Подвязываем свою функцию на событие(диспатчер, делегат) оверлап внутри компонента
 	Box->OnComponentBeginOverlap.AddDynamic(this, &ACPPCube::MyBeginOverlap);
 	Box->OnComponentEndOverlap.AddDynamic(this, &ACPPCube::MyEndOverlap);
 }
 
-// Called when the game starts or when spawned
 void ACPPCube::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
-// Called every frame
 void ACPPCube::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	// В нашем случае всё равно отключено в конструкторе класса
 }
 
 void ACPPCube::MyBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
@@ -81,7 +79,7 @@ void ACPPCube::NotifyActorBeginOverlap(AActor* OtherActor)
 
 	// Почти PrintString
 	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "Hello! I override NotifyActorBeginOverlap =)");
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, "Hello! I override NotifyActorBeginOverlap =)");
 	// больше про логирование
 	// https://www.chrismccole.com/blog/logging-in-ue4-cpp
 	// https://www.unrealcommunity.wiki/logging-lgpidy6i
@@ -90,7 +88,7 @@ void ACPPCube::NotifyActorBeginOverlap(AActor* OtherActor)
 void ACPPCube::NotifyActorEndOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorEndOverlap(OtherActor);
-	
+
 	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "Hello! I override NotifyActorEndOverlap =)");
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, "Hello! I override NotifyActorEndOverlap =)");
 }
